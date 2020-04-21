@@ -9,7 +9,15 @@ import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 
 const MenuNavigator = createStackNavigator({
-    Menu: { screen: Menu },
+    Menu: { screen: Menu,
+        navigationOptions: ( {navigation})=> ({
+            headerLeft: 
+              <Icon name='menu' size={24}
+                color='white'
+                onPress= { ()=> navigation.toggleDrawer()}
+              />
+        })
+       },
     Dishdetail: { screen: Dishdetail }
 },
 {
@@ -33,10 +41,15 @@ const HomeNavigator = createStackNavigator({
       headerStyle: {
           backgroundColor: "#512DA8"
       },
+      headerTintColor: "#fff" ,
       headerTitleStyle: {
           color: "#fff"            
       },
-      headerTintColor: "#fff"  
+      headerLeft: 
+      <Icon name='menu' size={24}
+        color='white'
+        onPress= { ()=> navigation.toggleDrawer()}
+      /> 
     })
 });
 
@@ -50,7 +63,12 @@ const AboutUsNavigator = createStackNavigator({
     headerTitleStyle: {
         color: "#fff"            
     },
-    headerTintColor: "#fff"  
+    headerTintColor: "#fff",
+    headerLeft: 
+    <Icon name='menu' size={24}
+      color='white'
+      onPress= { ()=> navigation.toggleDrawer()}
+    />  
   })
 });
 const ContactNavigator = createStackNavigator({
@@ -63,7 +81,12 @@ const ContactNavigator = createStackNavigator({
     headerTitleStyle: {
         color: "#fff"            
     },
-    headerTintColor: "#fff"  
+    headerTintColor: "#fff",
+    headerLeft: 
+    <Icon name='menu' size={24}
+      color='white'
+      onPress= { ()=> navigation.toggleDrawer()}
+    />  
   })
 });
 
@@ -72,28 +95,60 @@ const MainNavigator = createDrawerNavigator({
       { screen: HomeNavigator,
         navigationOptions: {
           title: 'Home',
-          drawerLabel: 'Home'
-        },
+          drawerLabel: 'Home',
+          drawerIcon: ({tintColor})=>(
+            <Icon
+              name='home'
+              type='font-awesome'
+              size={24}
+              color={tintColor}
+            /> 
+          )
+        }
       },
     AboutUs: 
       { screen: AboutUsNavigator,
         navigationOptions: {
           title: 'About Us',
-          drawerLabel: 'About Us'
+          drawerLabel: 'About Us',
+          drawerIcon: ({tintColor})=>(
+            <Icon
+              name='info-circle'
+              type='font-awesome'
+              size={24}
+              color={tintColor}
+            /> 
+          )
         }, 
       },  
     Menu: 
       { screen: MenuNavigator,
         navigationOptions: {
           title: 'Menu',
-          drawerLabel: 'Menu'
+          drawerLabel: 'Menu',
+          drawerIcon: ({tintColor})=>(
+            <Icon
+              name='list'
+              type='font-awesome'
+              size={24}
+              color={tintColor}
+            /> 
+          )
         }, 
       },
     ContactUs:
       { screen : ContactNavigator,
         navigationOptions: {
           title: 'Contact Us',
-          drawerLabel: 'Contact Us'
+          drawerLabel: 'Contact Us',
+          drawerIcon: ({tintColor})=>(
+            <Icon
+              name='address-card'
+              type='font-awesome'
+              size={22}
+              color={tintColor}
+            /> 
+          )
         },
       }  
 }, {
