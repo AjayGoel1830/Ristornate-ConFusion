@@ -53,7 +53,6 @@ class About extends Component {
                     renderItem={renderLeader}
                     keyExtractor={item => item.id.toString()}
                     />
-                   <Text>AAAAAAAAA</Text> 
                 </Card>
             </ScrollView>
         );
