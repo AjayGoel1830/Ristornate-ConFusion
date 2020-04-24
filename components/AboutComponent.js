@@ -44,7 +44,6 @@ class About extends Component {
         );
     }
         const { navigate } = this.props.navigation;
-<<<<<<< HEAD
         if (this.props.leaders.isLoading) {
             return(
                 <ScrollView>
@@ -82,20 +81,6 @@ class About extends Component {
                 </ScrollView>
             );
         }
-=======
-        return (
-            <ScrollView>
-                <History/>
-                <Card title='Corporate Leadership'>
-                <FlatList 
-                    data={this.props.leaders.leaders}
-                    renderItem={renderLeader}
-                    keyExtractor={item => item.id.toString()}
-                    />
-                </Card>
-            </ScrollView>
-        );
->>>>>>> 4e8eb26f9e6d8188505e7f40d635d0ffe9537370
     }
 }
 
