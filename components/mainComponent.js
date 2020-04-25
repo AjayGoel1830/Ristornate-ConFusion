@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Menu from './MenuComponent';
 import About from './AboutComponent';
 import Home from './HomeComponent';
-import ContactUs from './ContactComponent';
+import Contact from './ContactComponent';
 import Dishdetail from './DishdetailComponent';
 import Reservation from './ReservationComponent';
 import Favorites from './FavoriteComponent';
@@ -91,7 +91,7 @@ const AboutUsNavigator = createStackNavigator({
   })
 });
 const ContactNavigator = createStackNavigator({
-  ContactUs: { screen: ContactUs },
+  Contact: { screen: Contact },
 }, {
   navigationOptions: ({ navigation }) => ({
     headerStyle: {
@@ -203,7 +203,7 @@ const MainNavigator = createDrawerNavigator({
           )
         }, 
       },
-    ContactUs:
+    Contact:
       { screen : ContactNavigator,
         navigationOptions: {
           title: 'Contact Us',
