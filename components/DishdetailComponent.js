@@ -215,13 +215,13 @@ class DishDetail extends Component {
                                 onChangeText = {(value) => this.setState({comment: value})}
                             />
                         </View>
-                        <View>
+                        <View style ={{marginTop: 10}}>
                             <Button color = "#512DA8"
                                     title = "SUBMIT"
                                     onPress = {() => this.handleComments(dishId)}
                                     />
                         </View>
-                        <View>
+                        <View style ={{marginTop: 10}}>
                             <Button onPress = {() => this.toggleModal()}
                                     color = "#6c757d"
                                     title = "CANCEL"

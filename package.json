@@ -8,8 +8,9 @@
     "test": "jest"
   },
   "dependencies": {
-    "expo": "~37.0.3",
+    "expo": "^37.0.8",
     "expo-cli": "^3.18.6",
+    "expo-secure-store": "^8.1.0",
     "expo-updates": "~0.1.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
