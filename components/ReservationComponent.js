@@ -96,15 +96,31 @@ class Reservation extends Component {
     }
 
     async addReservationToCalendar(date) {
-		await this.obtainCalendarPermission();
-		Calendar.createEventAsync(Calendar.DEFAULT, {
-			title: 'Con Fusion Table Reservation',
-			startDate: new Date(Date.parse(date)),
-			endDate: new Date(Date.parse(date)).getTime() + (2*60*60*1000),
-			timeZone: 'Asia/Hong_Kong',
-			location: '121, Clear Water Bay Road, Clear Water Bay, Kowloon, Hong Kong'
-		});
-	}
+        await this.obtainCalendarPermission();
+        
+        let defaultCalendarID = null;
+
+        if (Platform.OS === 'ios') {
+            defaultCalendarID = (await Calendar.getDefaultCalendarAsync()).id;
+
+        } else {
+            const calendars = await Calendar.getCalendarsAsync();
+            defaultCalendarID = calendars[0].id;
+        }
+
+        console.log('defaultCalendarID: ' + defaultCalendarID);
+
+        let startDate = new Date(Date.parse(date));
+        let endDate = new Date(Date.parse(date) + 2*60*60*1000);
+
+        Calendar.createEventAsync(defaultCalendarID, {
+            title: 'Con Fusion Table Reservation',
+            startDate: startDate,
+            endDate: endDate,
+            location: '121, Clear Water Bay Road, Clear Water Bay, Kowloon, Hong Kong',
+            timeZone: 'Asia/Hong_Kong'
+        });
+    }
     
     render() {
         return(
