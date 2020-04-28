@@ -3,12 +3,13 @@ import Menu from './MenuComponent';
 import About from './AboutComponent';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
+import Splash from './SplashScreen';
 import Dishdetail from './DishdetailComponent';
 import Reservation from './ReservationComponent';
 import Login from './LoginComponent';
 import Favorites from './FavoriteComponent';
 import { View, Platform ,Image, StyleSheet, ScrollView, Text} from 'react-native';
-import { createStackNavigator, createDrawerNavigator , DrawerItems, SafeAreaView} from 'react-navigation';
+import { createStackNavigator, createDrawerNavigator , DrawerItems, SafeAreaView, createSwitchNavigator} from 'react-navigation';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
@@ -287,6 +288,19 @@ const MainNavigator = createDrawerNavigator({
   drawerBackgroundColor: '#D1C4E9',
   contentComponent : CustomDrawerContentComponent 
 });
+
+const AppNavigator= createSwitchNavigator(
+  {
+      Splash: {
+        screen:Splash
+      },
+      Main: MainNavigator
+  },
+  {
+      // initialRouteName: 'Splash',
+  },
+);
+
 class Main extends Component {
   
   componentDidMount() {
@@ -300,7 +314,7 @@ class Main extends Component {
  
     return (
         <View style={{flex:1}}>
-              <MainNavigator />
+              <AppNavigator />
         </View>
     );
   }
