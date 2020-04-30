@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, ScrollView, Image } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, Image, Alert } from 'react-native';
 import { Input, CheckBox, Button, Icon } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
 import { createBottomTabNavigator } from 'react-navigation';
@@ -44,6 +44,13 @@ class LoginTab extends Component {
             />
           ) 
     };
+
+    onPressGoogle(){
+        Alert.alert('Google press')
+    }
+    onPressFacebook(){
+        Alert.alert('Facebook press')
+    }
 
     handleLogin() {
         console.log(JSON.stringify(this.state));
@@ -106,11 +113,48 @@ class LoginTab extends Component {
                                 name='user-plus'
                                 type='font-awesome'            
                                 size={24}
-                                color= 'blue'
+                                color= 'white'
                             />
                         }
+                        buttonStyle={{
+                            backgroundColor: "#512DA8"
+                        }}
                         titleStyle={{
-                            color: "blue"
+                            color: "white"
+                        }}
+                        />
+                </View>
+                <View style={styles.googleb}>
+                    <Button
+                        onPress={()=> this.onPressGoogle()}
+                        title=" Login with Google"
+                        clear
+                        icon={
+                            <Image source={require('../googleIcon.png')}/>
+                        }
+                        buttonStyle={{
+                            backgroundColor: "#512DA8"
+                        }}
+                    />
+                </View>
+                <View style={styles.fbb}>
+                    <Button
+                        onPress={() => this.onPressFacebook()}
+                        title="Login with Facebook"
+                        clear
+                        icon={
+                            <Icon
+                                name='facebook'
+                                type='font-awesome'            
+                                size={24}
+                                color= 'white'
+                            />
+                        }
+                        buttonStyle={{
+                            backgroundColor: "#512DA8"
+                        }}
+                        titleStyle={{
+                            color: "white"
                         }}
                         />
                 </View>
@@ -221,23 +265,9 @@ class RegisterTab extends Component {
                         />    
                 </View>
                 <Input
-                    placeholder="Username"
-                    leftIcon={{ type: 'font-awesome', name: 'user-o' }}
-                    onChangeText={(username) => this.setState({username})}
-                    value={this.state.username}
-                    containerStyle={styles.formInput}
-                    />
-                <Input
-                    placeholder="Password"
-                    leftIcon={{ type: 'font-awesome', name: 'key' }}
-                    onChangeText={(password) => this.setState({password})}
-                    value={this.state.password}
-                    containerStyle={styles.formInput}
-                    />
-                <Input
                     placeholder="First Name"
                     leftIcon={{ type: 'font-awesome', name: 'user-o' }}
-                    onChangeText={(lastname) => this.setState({firstname})}
+                    onChangeText={(firstname) => this.setState({firstname})}
                     value={this.state.firstname}
                     containerStyle={styles.formInput}
                     />
@@ -249,12 +279,26 @@ class RegisterTab extends Component {
                     containerStyle={styles.formInput}
                     />
                 <Input
+                    placeholder="Username"
+                    leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+                    onChangeText={(username) => this.setState({username})}
+                    value={this.state.username}
+                    containerStyle={styles.formInput}
+                    />    
+                <Input
                     placeholder="Email"
                     leftIcon={{ type: 'font-awesome', name: 'envelope-o' }}
                     onChangeText={(email) => this.setState({email})}
                     value={this.state.email}
                     containerStyle={styles.formInput}
                     />
+                <Input
+                    placeholder="Password"
+                    leftIcon={{ type: 'font-awesome', name: 'key' }}
+                    onChangeText={(password) => this.setState({password})}
+                    value={this.state.password}
+                    containerStyle={styles.formInput}
+                    />    
                 <CheckBox title="Remember Me"
                     center
                     checked={this.state.remember}
@@ -278,6 +322,7 @@ class RegisterTab extends Component {
                         }}
                         />
                 </View>
+                
             </View>
             </ScrollView>
         );
@@ -293,22 +338,34 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         margin: 20,
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        alignItems: 'center'
     },
     image: {
-      margin: 10,
+      margin: 30,
       width: 80,
       height: 60
     },
     formInput: {
-        margin: 20
+        margin: 30
     },
     formCheckbox: {
-        margin: 20,
+        margin: 30,
         backgroundColor: null
     },
     formButton: {
-        margin: 60
+        margin: 10,
+        width: 100,
+        alignSelf: 'center',
+        // alignContent: 'center',
+        justifyContent: 'center',
+        
+    },
+    googleb: {
+        margin: 10,
+    },
+    fbb:{
+        margin: 10,
     }
 });
 
