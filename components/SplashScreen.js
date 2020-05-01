@@ -8,7 +8,7 @@ class Splash extends Component{
     checkMain = () => {
          setTimeout(() => {
              this.props.navigation.navigate('Main');
-        },2000);
+        },1000);
     };
 
     render(){

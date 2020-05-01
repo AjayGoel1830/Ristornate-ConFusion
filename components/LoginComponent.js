@@ -8,6 +8,8 @@ import * as Permissions from 'expo-permissions';
 import * as SecureStore from 'expo-secure-store';
 import * as ImageManipulator from "expo-image-manipulator";
 import { Asset } from "expo-asset";
+import * as Facebook from 'expo-facebook';
+import * as Google from 'expo-google-app-auth';
 
 class LoginTab extends Component {
 
@@ -45,11 +47,43 @@ class LoginTab extends Component {
           ) 
     };
 
-    onPressGoogle(){
-        Alert.alert('Google press')
-    }
-    onPressFacebook(){
-        Alert.alert('Facebook press')
+    async onPressGoogle() {
+        try {
+          const result = await Google.logInAsync({
+            androidClientId: "525809503576-ogun3g11ebkfnm9187puluj8u0apiggk.apps.googleusercontent.com",
+            iosClientId: "525809503576-7o47s723funue7l0ocrusslnit7b9be5.apps.googleusercontent.com",
+            scopes: ['profile', 'email'],
+          });
+      
+          if (result.type === 'success') {
+            return result.accessToken;
+          } else {
+            return { cancelled: true };
+          }
+        } catch (e) {
+          return { error: true };
+        }
+      }
+      
+    async onPressFacebook() {
+        try {
+          await Facebook.initializeAsync('164679618253141');
+          const {
+            type,
+            token,
+            expires,
+            permissions,
+            declinedPermissions,
+          } = await Facebook.logInWithReadPermissionsAsync({
+            permissions: ['public_profile'],
+          });
+          if (type === 'success') {
+            const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+            Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
+          }
+        } catch ({ message }) { 
+          alert(`Facebook Login Error: ${message}`);
+        }
     }
 
     handleLogin() {
@@ -89,7 +123,7 @@ class LoginTab extends Component {
                 <View style={styles.formButton}>
                     <Button
                         onPress={() => this.handleLogin()}
-                        title="Login"
+                        title=" Login"
                         icon={
                             <Icon
                                 name='sign-in'
@@ -106,7 +140,7 @@ class LoginTab extends Component {
                 <View style={styles.formButton}>
                     <Button
                         onPress={() => this.props.navigation.navigate('Register')}
-                        title="Register"
+                        title=" Register"
                         clear
                         icon={
                             <Icon
@@ -140,7 +174,7 @@ class LoginTab extends Component {
                 <View style={styles.fbb}>
                     <Button
                         onPress={() => this.onPressFacebook()}
-                        title="Login with Facebook"
+                        title=" Login with Facebook"
                         clear
                         icon={
                             <Icon

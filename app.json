@@ -11,6 +11,15 @@
     "android": {
       "package": "net.food.confusion.confusion",
       "versionCode": 1
+    },
+    "facebookAppId": "164679618253141",
+    "facebookScheme": "fb164679618253141",
+    "facebookDisplayName":"fb164679618253141",
+    "extra":{
+      "googleAppId":{
+        "ios": "525809503576-7o47s723funue7l0ocrusslnit7b9be5.apps.googleusercontent.com",
+        "android": "525809503576-ogun3g11ebkfnm9187puluj8u0apiggk.apps.googleusercontent.com"
+      }
     }
   }
 }
