@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, StyleSheet, Picker, Switch, Button , Modal, Alert} from 'react-native';
+import { Text, View, ScrollView, StyleSheet, Picker, Switch, Button , Modal, Alert, RefreshControl} from 'react-native';
 import { Card } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker'
 import * as Animatable from 'react-native-animatable';
@@ -16,7 +16,8 @@ class Reservation extends Component {
             guests: 1,
             smoking: false,
             date: '',
-            showModal: false
+            showModal: false,
+            refreshing: false,
         }
     }
 
@@ -55,6 +56,11 @@ class Reservation extends Component {
             showModal: false
         });
     }
+    _onRefresh = () => {
+        this.setState({refreshing: true});
+        this.resetForm();
+        this.setState({refreshing: false});
+      }
 
     async obtainNotificationPermission() {
         let permission = await Permissions.getAsync(Permissions.USER_FACING_NOTIFICATIONS);
@@ -124,7 +130,12 @@ class Reservation extends Component {
     
     render() {
         return(
-            <ScrollView>
+            <ScrollView refreshControl={
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this._onRefresh}
+                />
+              }>
                 <Animatable.View animation="zoomInDown" duration={2000} delay={1000}>
                     <View style={styles.formRow}>
                     <Text style={styles.formLabel}>Number of Guests</Text>
@@ -176,12 +187,18 @@ class Reservation extends Component {
                     />
                     </View>
                     <View style={styles.formRow}>
-                    <Button
-                        onPress={() => this.handleReservation()}
-                        title="Reserve"
-                        color="#512DA8"
-                        accessibilityLabel="Learn more about this purple button"
-                        />
+                        <Button
+                            onPress={() => this.resetForm()}
+                            title="Reset"
+                            color="#512DA8"
+                            // accessibilityLabel="Learn more about this purple button"
+                            />    
+                        <Button
+                            onPress={() => this.handleReservation()}
+                            title="Reserve"
+                            color="#512DA8"
+                            accessibilityLabel="Learn more about this purple button"
+                            />
                     </View>
                     <Modal 
                         animationType={"slide"}
@@ -214,7 +231,7 @@ class Reservation extends Component {
 const styles = StyleSheet.create({
     formRow: {
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'space-evenly',
       flex: 1,
       flexDirection: 'row',
       margin: 20

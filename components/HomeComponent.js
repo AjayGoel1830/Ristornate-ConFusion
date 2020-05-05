@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Animated, Easing } from 'react-native';
+import { Text, View, Animated, Easing , ScrollView, RefreshControl} from 'react-native';
 import { Card } from 'react-native-elements';
 import { Loading } from './LoadingComponent';
 import { connect } from 'react-redux';
@@ -53,11 +53,18 @@ class Home extends Component {
     constructor(props){
         super(props);
         this.animatedValue= new Animated.Value(0);
+        this.state = {
+            refreshing: false,
+          };
     }
 
     static navigationOptions = {
         title: 'Home',
     };
+    _onRefresh = () => {
+        this.setState({refreshing: true});
+        this.setState({refreshing: false});
+      }
     
     componentDidMount() {
         this.animate()
@@ -90,26 +97,34 @@ class Home extends Component {
         })
 
         return(
-            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-            <Animated.View style={{ width: '100%', transform: [{translateX: xpos1}]}}>
-                <RenderItem item={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
-                    isLoading={this.props.dishes.isLoading}
-                    erreMess={this.props.dishes.erreMess} 
-                    />
-            </Animated.View>
-            <Animated.View style={{ width: '100%',  transform: [{translateX: xpos2}]}}>
-                <RenderItem item={this.props.promotions.promotions.filter((promo) => promo.featured)[0]}
-                    isLoading={this.props.promotions.isLoading}
-                    erreMess={this.props.promotions.erreMess} 
-                    />
-            </Animated.View>
-            <Animated.View style={{ width: '100%',  transform: [{translateX: xpos3}]}}>
-                <RenderItem item={this.props.leaders.leaders.filter((leader) => leader.featured)[0]}
-                    isLoading={this.props.leaders.isLoading}
-                    erreMess={this.props.leaders.erreMess} 
-                    />
+            <ScrollView refreshControl={
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this._onRefresh}
+                />
+              }
+            >
+                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+                <Animated.View style={{ width: '100%', transform: [{translateX: xpos1}]}}>
+                    <RenderItem item={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
+                        isLoading={this.props.dishes.isLoading}
+                        erreMess={this.props.dishes.erreMess} 
+                        />
                 </Animated.View>
-            </View>
+                <Animated.View style={{ width: '100%',  transform: [{translateX: xpos2}]}}>
+                    <RenderItem item={this.props.promotions.promotions.filter((promo) => promo.featured)[0]}
+                        isLoading={this.props.promotions.isLoading}
+                        erreMess={this.props.promotions.erreMess} 
+                        />
+                </Animated.View>
+                <Animated.View style={{ width: '100%',  transform: [{translateX: xpos3}]}}>
+                    <RenderItem item={this.props.leaders.leaders.filter((leader) => leader.featured)[0]}
+                        isLoading={this.props.leaders.isLoading}
+                        erreMess={this.props.leaders.erreMess} 
+                        />
+                    </Animated.View>
+                </View>
+            </ScrollView>
         );
     }
 }
