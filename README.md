@@ -10,7 +10,7 @@ Clone the repo and Run the following commands
 
 Open a command window or Terminal and type
 
-`json-server --watch db.json --host 0.0.0.0 -p 3001 -d 2000`
+`json-server --watch db.json --host 0.0.0.0 -p 3002 -d 2000`
 
 Download the expo app from App Store or Play Store
 
